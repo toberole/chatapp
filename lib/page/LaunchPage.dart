@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/base/BaseState.dart';
 
@@ -20,6 +22,8 @@ class _LaunchPageState extends BaseState<LaunchPage> {
   @override
   void initState() {
     super.initState();
+    print('Zone.current["Hello"]: ${Zone.current["Hello"]}');
+
     pageController = PageController();
     pageController.addListener(() {
       print("pageController VoidCallback");

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
@@ -12,32 +13,42 @@ import 'db/DB.dart';
 import 'page/LaunchPage.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  // runZonedGuarded
+  // 异步全局异常捕捉
+  runZoned(() {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  String defaultRouteName = window.defaultRouteName;
-  print("defaultRouteName: $defaultRouteName");
+    String defaultRouteName = window.defaultRouteName;
+    print("defaultRouteName: $defaultRouteName");
 
-  TLSizeFit.initialize();
+    TLSizeFit.initialize();
 
-  // if (Platform.isAndroid) {
-  //   SystemUiOverlayStyle systemUiOverlayStyle =
-  //       SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-  //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  // }
+    // if (Platform.isAndroid) {
+    //   SystemUiOverlayStyle systemUiOverlayStyle =
+    //       SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    // }
 
-  if (Platform.isAndroid) {
-    SystemUiOverlayStyle style = SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+    if (Platform.isAndroid) {
+      SystemUiOverlayStyle style = SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
 
-        ///这是设置状态栏的图标和字体的颜色
-        ///Brightness.light  一般都是显示为白色
-        ///Brightness.dark 一般都是显示为黑色
-        statusBarIconBrightness: Brightness.dark);
-    SystemChrome.setSystemUIOverlayStyle(style);
-  }
+          ///这是设置状态栏的图标和字体的颜色
+          ///Brightness.light  一般都是显示为白色
+          ///Brightness.dark 一般都是显示为黑色
+          statusBarIconBrightness: Brightness.dark);
+      SystemChrome.setSystemUIOverlayStyle(style);
+    }
 
-  init();
-  return runApp(LaunchPage());
+    init();
+    return runApp(LaunchPage());
+  }, onError: (Object obj, StackTrace stack) {
+    print('onError: $obj,stack: $stack');
+  },
+      zoneSpecification: ZoneSpecification(),
+      zoneValues /* 相当于沙箱中的全局数据 其他地方获取 Zone.current["Hello"] */ : {
+        "Hello": "World"
+      });
 }
 
 void init() async {
