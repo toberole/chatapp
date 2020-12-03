@@ -146,6 +146,8 @@ class _ChatPageState extends BaseState<ChatPage> with WidgetsBindingObserver {
                     shrinkWrap: true,
                     controller: _controller,
                     itemCount: datas.length,
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
                     itemBuilder: (BuildContext context, int index) {
                       var m = datas[index];
                       if (m.sender == "me") {
