@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/base/BaseState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bean/ChatMessage.dart';
 import 'package:flutter_app/bean/Contact.dart';
 import 'package:flutter_app/bean/Conversation.dart';
+import 'package:flutter_app/common/TLSizeFit.dart';
 import 'package:flutter_app/db/DB.dart';
 
 import '../Constant.dart';
@@ -130,17 +132,106 @@ class _ChatPageState extends BaseState<ChatPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // return MaterialApp(
+    //   title: "ChatPage",
+    //   home: Scaffold(
+    //     appBar: AppBar(
+    //       title: Text("ChatPage"),
+    //     ),
+    //     resizeToAvoidBottomInset: true,
+    //     body: Column(
+    //       mainAxisAlignment: MainAxisAlignment.start,
+    //       mainAxisSize: MainAxisSize.max,
+    //       children: [
+    //         Expanded(
+    //             child: ListView.builder(
+    //                 shrinkWrap: true,
+    //                 controller: _controller,
+    //                 itemCount: datas.length,
+    //                 keyboardDismissBehavior:
+    //                     ScrollViewKeyboardDismissBehavior.onDrag,
+    //                 itemBuilder: (BuildContext context, int index) {
+    //                   var m = datas[index];
+    //                   if (m.sender == "me") {
+    //                     return ChatRightItem(m);
+    //                   } else {
+    //                     return ChatLeftItem(m);
+    //                   }
+    //
+    //                   // return ChatLeftItem(m);
+    //                 })),
+    //         Container(
+    //           width: double.infinity,
+    //           height: 50,
+    //           padding: EdgeInsets.only(left: 5, right: 5),
+    //           child: IntrinsicHeight(
+    //             child: Row(
+    //               crossAxisAlignment: CrossAxisAlignment.center,
+    //               mainAxisSize: MainAxisSize.max,
+    //               mainAxisAlignment: MainAxisAlignment.start,
+    //               children: [
+    //                 Expanded(
+    //                     child: TextField(
+    //                   controller: _textEditingController,
+    //                   textAlign: TextAlign.start,
+    //                   maxLines: null,
+    //                   keyboardType: TextInputType.multiline,
+    //                   decoration: InputDecoration(
+    //                       hintText: "今天天气怎么样",
+    //                       border: OutlineInputBorder(
+    //                           borderRadius:
+    //                               BorderRadius.all(Radius.circular(5))),
+    //                       contentPadding:
+    //                           EdgeInsets.only(left: 3, top: 0, bottom: 0)),
+    //                 )),
+    //                 Container(
+    //                   margin: EdgeInsets.only(left: 5),
+    //                   height: 50,
+    //                   child: RaisedButton(
+    //                     color: Colors.lightGreen,
+    //                     shape: RoundedRectangleBorder(
+    //                         side: BorderSide.none,
+    //                         borderRadius: BorderRadius.all(Radius.circular(5))),
+    //                     onPressed: () {
+    //                       print(_textEditingController.text);
+    //                       sendMsg(_textEditingController.text);
+    //                       _textEditingController.text = "";
+    //                     },
+    //                     child: Text(
+    //                       "Send",
+    //                       textAlign: TextAlign.center,
+    //                     ),
+    //                   ),
+    //                 )
+    //               ],
+    //             ),
+    //           ),
+    //         )
+    //       ],
+    //     ),
+    //   ),
+    // );
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
     return MaterialApp(
       title: "ChatPage",
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("ChatPage"),
-        ),
         resizeToAvoidBottomInset: true,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
+            Container(
+              color: Colors.white,
+              height: TLSizeFit.statusHeight,
+            ),
+            Container(
+              color: Colors.white,
+              height: 50,
+              child: Center(
+                child: Text("聊天页面"),
+              ),
+            ),
             Expanded(
                 child: ListView.builder(
                     shrinkWrap: true,

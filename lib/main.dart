@@ -7,9 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Constant.dart';
 import 'bean/Contact.dart';
+import 'common/TLSizeFit.dart';
 import 'db/DB.dart';
 import 'page/LaunchPage.dart';
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,10 +17,23 @@ void main() {
   String defaultRouteName = window.defaultRouteName;
   print("defaultRouteName: $defaultRouteName");
 
+  TLSizeFit.initialize();
+
+  // if (Platform.isAndroid) {
+  //   SystemUiOverlayStyle systemUiOverlayStyle =
+  //       SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+  //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  // }
+
   if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    SystemUiOverlayStyle style = SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+
+        ///这是设置状态栏的图标和字体的颜色
+        ///Brightness.light  一般都是显示为白色
+        ///Brightness.dark 一般都是显示为黑色
+        statusBarIconBrightness: Brightness.dark);
+    SystemChrome.setSystemUIOverlayStyle(style);
   }
 
   init();
